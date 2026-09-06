@@ -1,18 +1,19 @@
-export default async (req, context) => {
-  if (req.method === 'POST') {
-    return new Response(JSON.stringify({ message: "Dados salvos com sucesso no servidor!" }), {
+export default async function handler(req, context) {
+  // Se for uma requisição POST (tentativa de salvar dados)
+  if (req.method === "POST") {
+    return new Response(JSON.stringify({ success: true, message: "Salvo no servidor com sucesso!" }), {
       status: 200,
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
   }
 
-  const products = [
-    { id: 1, name: "Whey Protein", price: 100 },
-    { id: 2, name: "Creatina", price: 60 }
-  ];
-
-  return new Response(JSON.stringify(products), {
+  // Resposta padrão para GET
+  return new Response(JSON.stringify({ message: "API funcionando!" }), {
     status: 200,
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json" },
   });
+}
+
+export const config = {
+  path: "/api/products"
 };
